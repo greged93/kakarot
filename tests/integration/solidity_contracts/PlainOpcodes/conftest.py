@@ -77,7 +77,12 @@ async def empty_one(kakarot, empty_deployer_one):
         deploy_bytecode = hex_string_to_bytes_array("0x60006000f3")
         with traceit.context("empty"):
             tx = await kakarot.eth_send_transaction(
-                to=0, gas_limit=1_000_000, gas_price=0, value=0, data=deploy_bytecode
+                to=0,
+                gas_limit=1_000_000,
+                gas_price=0,
+                value=0,
+                data=deploy_bytecode,
+                origin=empty_deployer_one.evm_address,
             ).execute(caller_address=empty_deployer_one.starknet_address)
 
         deploy_event = [
@@ -97,7 +102,12 @@ async def empty_two(kakarot, empty_deployer_two):
         deploy_bytecode = hex_string_to_bytes_array("0x60006000f3")
         with traceit.context("empty"):
             tx = await kakarot.eth_send_transaction(
-                to=0, gas_limit=1_000_000, gas_price=0, value=0, data=deploy_bytecode
+                to=0,
+                gas_limit=1_000_000,
+                gas_price=0,
+                value=0,
+                data=deploy_bytecode,
+                origin=empty_deployer_two.evm_address,
             ).execute(caller_address=empty_deployer_two.starknet_address)
 
         deploy_event = [
