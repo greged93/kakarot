@@ -507,6 +507,9 @@ namespace CallHelper {
         // Check if the called address is a precompiled contract
         let is_precompile = Precompiles.is_precompile(address=call_args.address);
         if (is_precompile == FALSE) {
+            %{
+                print("this is the calculated evm address", ids.call_args.address)
+            %}
             let (starknet_contract_address) = Accounts.compute_starknet_address(
                 evm_address=call_args.address
             );
@@ -584,6 +587,13 @@ namespace CallHelper {
 
         let stack = Stack.push(ctx.stack, status);
         let ctx = ExecutionContext.update_stack(ctx, stack);
+
+        %{
+            print("this is the ctx memory", ids.ctx.memory)
+            print("this is the ctx subcontext return data len", ids.ctx.sub_context.return_data_len)
+            print("this is the ctx subcontext return data", ids.ctx.sub_context.return_data)
+            print("this is the value at [ctx.sub_context.return_data - 1]", memory[ids.ctx.sub_context.return_data - 1])
+        %}
 
         // ret_offset, see prepare_args
         let memory = Memory.store_n(

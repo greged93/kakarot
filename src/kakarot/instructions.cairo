@@ -627,6 +627,9 @@ namespace EVMInstructions {
                     let ctx = CallHelper.finalize_calling_context(ctx);
                     return run(ctx=ctx);
                 }
+                %{
+                    print("I am currently in contract", ids.ctx.starknet_contract_address)
+                %}
                 let (bytecode_len) = IAccount.bytecode_len(
                     contract_address=ctx.starknet_contract_address
                 );
